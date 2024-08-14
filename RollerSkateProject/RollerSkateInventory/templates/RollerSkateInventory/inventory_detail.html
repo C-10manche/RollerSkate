@@ -1,0 +1,36 @@
+{% extends "RollerSkateInventory/base.html" %}
+
+{% block title %}{{inventory.name}} Inventory{% endblock %}
+
+{% block content %}
+  <h2>{{inventory.name}} Inventory</h2>
+  <table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Barcode</th>
+            <th>Inventory</th>
+            <th>Option</th>
+        </tr>
+    </thead>
+    <a href="{% url 'rollerskate-create' inventory.id %}">
+      <button class="create">+ Add Roller-Skate +</button> 
+    </a>
+    <tbody>
+        {% for rollerskate in inventory.rollerskates.all %}
+            <tr>
+                <td><a href="{%url 'rollerskate-detail' inventory.id rollerskate.id%}"><button>{{ rollerskate.name }}</button></a></td>
+                <td>{{ rollerskate.size }}</td>
+                <td>{{ rollerskate.barcode }}</td>
+                <td><a class="option" href="{% url 'rollerskate-update' inventory.id rollerskate.id %}"><button class="option"> Modify </button></a></td>
+                <td><a class="danger" href="{% url 'rollerskate-delete' inventory.id rollerskate.id %}"><button class="danger"> Delete </button></a></td>
+            </tr>
+        {% empty %}
+        {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'inventory-list' %}">
+    <button>Go Back</button> 
+  </a>
+{% endblock %}

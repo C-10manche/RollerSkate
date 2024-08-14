@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>    
+    <link rel="stylesheet" type="text/css" href= "{% static 'RollerSkateInventory/style.css'%}">
+</head>
+<body>
+    <nav>
+        {% block navbar %}  
+        </button>          
+            <a href="{% url 'home'%}">Home</a>
+            <a href="{% url 'inventory-list'%}">Inventories</a>
+            <a href="#" class={%if active%}"active"{%endif%}>Events</a>
+        {% endblock %}
+    </nav>
+    <main class = "column">
+        {% block content %}
+        <h2>Welcome</h2> 
+        <h2>This webapp allow you to manage your roller-skates.</h2>
+        {% endblock %}
+    </main>
+</body>
+</html>

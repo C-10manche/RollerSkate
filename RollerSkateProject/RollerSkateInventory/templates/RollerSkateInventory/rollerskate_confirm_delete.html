@@ -1,0 +1,12 @@
+{% extends 'RollerSkateInventory/base.html' %}
+{%block content%}
+    <h2>WARNING</h2>
+    <p>Are you sure you want to delete <span class="red-text">{{object.name}}</span> ? </p>
+    <form method="POST">
+        {% csrf_token %}
+        <button class="danger">Delete</button>
+    </form>  
+    <a href="{% url 'inventory-detail' object.inventory.id%}">
+      <button>Cancel</button> 
+    </a>
+{%endblock content%}

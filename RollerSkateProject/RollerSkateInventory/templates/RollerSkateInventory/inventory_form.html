@@ -1,0 +1,15 @@
+{% extends "RollerSkateInventory/base.html" %}
+
+{% block title %}Create Inventory{% endblock %}
+
+{% block content %}
+  <h2>Create Inventory</h2>    
+  <form class="column" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="create">Create</button>
+  </form>
+  <a href="{% url 'inventory-list' %}">
+    <button>Cancel</button> 
+  </a>
+{% endblock %}

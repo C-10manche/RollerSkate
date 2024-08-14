@@ -1,0 +1,11 @@
+{% extends 'RollerSkateInventory/base.html' %}
+{%block content%}
+    <h2>WARNING</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <button class="danger" type="submit">Delete</button>
+    </form>    
+    <form method="GET" action="{% url 'inventory-list' %}">
+        <button>Cancel</button> 
+    </form>    
+{%endblock content%}
