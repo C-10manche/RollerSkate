@@ -18,8 +18,8 @@
           <td><a class="btn inventory" href="{% url 'inventory-detail' inventory.id %}">{{ inventory.name }}</a></td>         
           <td>{{ inventory.address }}</td>         
           <td>
-            <a class="btn update" href="{% url 'inventory-update' inventory.id %}">Rename</a>
-            <a class="btn danger" href="{% url 'inventory-delete' inventory.id %}">Delete</a>
+            <a class="btn update" href="{% url 'inventory-update' inventory.id %}">&#9998</a>
+            <a class="btn danger" href="{% url 'inventory-delete' inventory.id %}">&#10005</a>
           </td>        
       </tr>
       {% empty %}

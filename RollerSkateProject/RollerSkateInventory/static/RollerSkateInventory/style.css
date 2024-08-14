@@ -15,7 +15,7 @@ body {
     justify-content: center;
     position: relative;
     color: #f7f6f2;
-    margin: 10%;
+    margin: 15vh;
 }
 
 nav {
@@ -26,8 +26,8 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-    height: fit-content;
-    background-color: #3a3a3aec;
+    height: 125px;
+    background-color: #3a3a3ac5;
     padding: 20px;
     box-sizing: border-box;
 
@@ -40,7 +40,7 @@ nav {
 }
 
 nav:hover{
-    background-color: #3a3a3a; 
+    background-color: #3a3a3a;
     transition: all 0.3s ease 0.01s;  
 }
 
@@ -57,9 +57,8 @@ main{
     justify-content: center;
     padding: 20px;
     background-color: hsla(218, 10%, 15%, 0.932);
-    min-width: fit-content;
-    min-height: fit-content;
-    max-width: 800px;
+    width: fit-content;
+    height: fit-content;
     transition: all 0.3s ease 0.1s;
 }
 
@@ -132,15 +131,20 @@ a{
     color: #f7f6f2;
 }
 
+a:hover{
+    color: rgb(247, 246, 242);
+}
+
 nav a{
     font-size: 30px;
     align-items: center;
     padding-left: 10px;
     padding-right: 10px;
+    color: #f7f6f298;
 }
 
-a:hover{
-    color: #b7dfff9f;
+nav a:hover{
+    color: #c4b171;
 }
 
 .btn{    
@@ -150,7 +154,8 @@ a:hover{
     background-color: transparent;
 
     margin: 10px;
-    padding: 8px;
+    padding: 10px;
+    padding-inline: 15px;
 }
 
 .btn:hover{

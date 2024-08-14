@@ -25,8 +25,8 @@
               {% endif %}
               <td>{{ rollerskate.barcode }}</td>
               <td>
-                <a class="btn option" href="{% url 'rollerskate-update' inventory.id rollerskate.id %}">Modify</a>
-                <a class="btn danger" href="{% url 'rollerskate-delete' inventory.id rollerskate.id %}">Delete</a>
+                <a class="btn update" href="{% url 'rollerskate-update' inventory.id rollerskate.id %}">&#9998</a>
+                <a class="btn danger" href="{% url 'rollerskate-delete' inventory.id rollerskate.id %}">&#10005</a>
               </td>
           </tr>
         {% empty %}
