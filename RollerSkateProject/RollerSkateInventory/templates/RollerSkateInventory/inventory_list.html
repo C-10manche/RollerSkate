@@ -3,7 +3,7 @@
 {% block title %}Inventories{% endblock %}
 
 {% block content %}
-  <a href="{% url 'inventory-create'%}"> <button class="create">+ Add Inventory +</button></a>
+  <a class="btn create" href="{% url 'inventory-create'%}">+ Add Inventory</a>
   <table>
     <thead>
         <tr>
@@ -15,10 +15,12 @@
     <tbody>
       {% for inventory in inventories %}
       <tr>
-          <td><a href="{% url 'inventory-detail' inventory.id %}"><button>{{ inventory.name }}</button></a></td>         
+          <td><a class="btn inventory" href="{% url 'inventory-detail' inventory.id %}">{{ inventory.name }}</a></td>         
           <td>{{ inventory.address }}</td>         
-          <td><a class="option" href="{% url 'inventory-update' inventory.id %}"><button class="option"> Rename </button></a>
-          <a class="danger" href="{% url 'inventory-delete' inventory.id %}"><button class="danger"> Delete </button></a></td>        
+          <td>
+            <a class="btn update" href="{% url 'inventory-update' inventory.id %}">Rename</a>
+            <a class="btn danger" href="{% url 'inventory-delete' inventory.id %}">Delete</a>
+          </td>        
       </tr>
       {% empty %}
           </tbody>

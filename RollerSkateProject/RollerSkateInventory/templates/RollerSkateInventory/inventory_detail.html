@@ -3,28 +3,31 @@
 {% block title %}{{inventory.name}} Inventory{% endblock %}
 
 {% block content %}
-  <h2>{{inventory.name}} Inventory</h2>
+  <h2>{{inventory.name}}</h2>
   <table>
     <thead>
         <tr>
             <th>Name</th>
-            <th>Size</th>
+            <th>Sizes</th>
             <th>Barcode</th>
-            <th>Inventory</th>
             <th>Option</th>
         </tr>
     </thead>
-    <a href="{% url 'rollerskate-create' inventory.id %}">
-      <button class="create">+ Add Roller-Skate +</button> 
-    </a>
+    <a class="btn create" href="{% url 'rollerskate-create' inventory.id %}">+ Add Roller-Skate</a>
     <tbody>
         {% for rollerskate in inventory.rollerskates.all %}
           <tr>
-              <td><a href="{%url 'rollerskate-detail' inventory.id rollerskate.id%}"><button>{{ rollerskate.name }}</button></a></td>
-              <td>{{ rollerskate.size }}</td>
+              <td><a class="btn rollerskate" href="{%url 'rollerskate-detail' inventory.id rollerskate.id%}">{{ rollerskate.name }}</a></td>
+              {%if rollerskate.size_min == rollerskate.size_max%}
+                <td>{{ rollerskate.size_min }}</td>
+              {% else %}
+                <td>{{ rollerskate.size_min }}-{{ rollerskate.size_max }}</td>
+              {% endif %}
               <td>{{ rollerskate.barcode }}</td>
-              <td><a class="option" href="{% url 'rollerskate-update' inventory.id rollerskate.id %}"><button class="option"> Modify </button></a></td>
-              <td><a class="danger" href="{% url 'rollerskate-delete' inventory.id rollerskate.id %}"><button class="danger"> Delete </button></a></td>
+              <td>
+                <a class="btn option" href="{% url 'rollerskate-update' inventory.id rollerskate.id %}">Modify</a>
+                <a class="btn danger" href="{% url 'rollerskate-delete' inventory.id rollerskate.id %}">Delete</a>
+              </td>
           </tr>
         {% empty %}
             </tbody>
@@ -33,7 +36,5 @@
         {% endfor %}
     </tbody>
   </table>
-  <a href="{% url 'inventory-list' %}">
-    <button>Go Back</button> 
-  </a>
+  <a class="btn" href="{% url 'inventory-list' %}"> Go Back</a>
 {% endblock %}

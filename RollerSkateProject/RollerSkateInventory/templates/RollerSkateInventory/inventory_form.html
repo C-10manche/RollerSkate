@@ -3,13 +3,14 @@
 {% block title %}Create Inventory{% endblock %}
 
 {% block content %}
-  <h2>Create Inventory</h2>    
+  <h2>{{button_name}} Inventory</h2>    
   <form class="column" method="post">
     {% csrf_token %}
-    {{form.as_p}}
-    <button class="create">Create</button>
+    <td>Name {{form.name}}</td>
+    <br></br>
+    <td>Adress {{form.address}}</td>
+    <br></br>    
+    <button class="btn create">{{button_name}}</button>
   </form>
-  <a href="{% url 'inventory-list' %}">
-    <button>Cancel</button> 
-  </a>
+  <a class="btn" href="{% url 'inventory-list' %}">Cancel</a>
 {% endblock %}

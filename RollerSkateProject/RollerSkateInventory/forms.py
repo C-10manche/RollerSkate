@@ -9,5 +9,5 @@ class InventoryForm(forms.ModelForm):
 class RollerSkateForm(forms.ModelForm):
     class Meta:
         model = RollerSkate
-        fields = ["name", "size", "barcode"]
+        fields = ["name", "size_min", "size_max", "barcode"]
         

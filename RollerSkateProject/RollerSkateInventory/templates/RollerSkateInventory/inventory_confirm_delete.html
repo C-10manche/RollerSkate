@@ -1,12 +1,10 @@
 {% extends 'RollerSkateInventory/base.html' %}
 {%block content%}
-    <h2>WARNING</h2>
-    <p>Are you sure you want to delete <span class="red-text">{{object.name}}</span> ? </p>
+    <h2 class="red">WARNING</h2>
+    <p>Are you sure you want to delete <span class="yellow">{{object.name}}</span> ? </p>
     <form method="POST">
         {% csrf_token %}
-        <button class="danger" type="submit">Delete</button>
+        <button class="btn danger" type="submit">Delete</button>
     </form>    
-    <form method="GET" action="{% url 'inventory-list' %}">
-        <button>Cancel</button> 
-    </form>    
+    <a class="btn" href="{% url 'inventory-list' %}">Cancel</a>    
 {%endblock content%}

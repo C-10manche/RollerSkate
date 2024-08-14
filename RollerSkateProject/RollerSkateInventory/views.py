@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from .models import Inventory, RollerSkate
 from .forms import InventoryForm, RollerSkateForm
 from django.views import generic
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy   
 
 class HomeView(generic.TemplateView):
-    template_name = 'RollerSkateInventory/base.html'    
+    template_name = 'RollerSkateInventory/home.html'    
 
 #region InventoryViews
 class InventoryListView(generic.ListView):
@@ -16,6 +16,11 @@ class InventoryCreateView(generic.CreateView):
     model = Inventory
     form_class = InventoryForm
     success_url = reverse_lazy('inventory-list')
+       
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['button_name'] = "Create"            
+        return context
     
 class InventoryDetailView(generic.DetailView):    
     model = Inventory
@@ -24,7 +29,12 @@ class InventoryDetailView(generic.DetailView):
 class InventoryUpdateView(generic.UpdateView):    
     model = Inventory
     fields = ['name', 'address']
-    success_url = reverse_lazy('inventory-list')
+    success_url = reverse_lazy('inventory-list')    
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['button_name'] = "Update"            
+        return context
     
 class InventoryDeleteView(generic.DeleteView):    
     model = Inventory
@@ -38,6 +48,7 @@ class RollerSkateCreateView(generic.CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["inventory_pk"] = self.kwargs['pk']
+        context["button_name"] = "Create"
         return context    
     
     def form_valid(self, form):
@@ -55,11 +66,12 @@ class RollerSkateDetailView(generic.DetailView):
 
 class RollerSkateUpdateView(generic.UpdateView):    
     model = RollerSkate
-    fields = ['name', 'size', 'barcode']
+    fields = ['name', 'size_min', 'size_max', 'barcode']
     
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["inventory_pk"] = self.kwargs['inventory_pk']
+        context = super().get_context_data(**kwargs)        
+        context['inventory_pk'] = self.kwargs['inventory_pk']
+        context['button_name'] = "Update"            
         return context
     
     def get_success_url(self):

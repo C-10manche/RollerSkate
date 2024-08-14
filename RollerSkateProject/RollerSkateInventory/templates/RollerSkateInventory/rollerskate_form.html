@@ -3,13 +3,16 @@
 {% block title %}Create Roller-Skate{% endblock %}
 
 {% block content %}
-  <h2>Create Roller-Skate</h2>    
+  <h2>{{button_name}} Roller-Skate</h2>    
   <form class="column" method="post">
     {% csrf_token %}
-    {{form.as_p}}
-      <button class="create">Create</button>
+      <td>Name{{form.name}}</td>
+      <br></br>    
+      <td>Size<div class="row"> Min{{form.size_min}} Max{{form.size_max}}</div></td>
+      <br></br>    
+      <td>Barcode{{form.barcode}}</td>
+      <br></br>    
+      <button class="btn create">{{button_name}}</button>
   </form> 
-  <a href="{% url 'inventory-detail' inventory_pk%}">
-    <button>Cancel</button> 
-  </a>
+  <a class="btn" href="{% url 'inventory-detail' inventory_pk%}">Cancel</a>
 {% endblock %}
