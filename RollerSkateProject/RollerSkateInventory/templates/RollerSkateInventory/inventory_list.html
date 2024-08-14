@@ -20,6 +20,10 @@
           <td><a class="option" href="{% url 'inventory-update' inventory.id %}"><button class="option"> Rename </button></a>
           <a class="danger" href="{% url 'inventory-delete' inventory.id %}"><button class="danger"> Delete </button></a></td>        
       </tr>
+      {% empty %}
+          </tbody>
+        </table>
+        <p class="red-text">No Inventory Found</p>
       {% endfor %}
     </tbody>
   </table>

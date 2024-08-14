@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&display=swap');
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Mate SC", serif;
+    font-weight: 400;
+    font-style: normal;
     background-color: rgb(45, 46, 48);
     display: flex;
     flex-direction: column;

@@ -1,6 +1,7 @@
 {% extends 'RollerSkateInventory/base.html' %}
 {%block content%}
     <h2>WARNING</h2>
+    <p>Are you sure you want to delete <span class="red-text">{{object.name}}</span> ? </p>
     <form method="POST">
         {% csrf_token %}
         <button class="danger" type="submit">Delete</button>

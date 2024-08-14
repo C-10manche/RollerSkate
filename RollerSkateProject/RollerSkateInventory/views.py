@@ -57,6 +57,11 @@ class RollerSkateUpdateView(generic.UpdateView):
     model = RollerSkate
     fields = ['name', 'size', 'barcode']
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["inventory_pk"] = self.kwargs['inventory_pk']
+        return context
+    
     def get_success_url(self):
         return reverse_lazy('inventory-detail', kwargs={'pk': self.object.inventory.id})    
 
