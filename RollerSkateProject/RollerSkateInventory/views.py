@@ -5,13 +5,20 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.forms import formset_factory
 
-class Home_View(generic.TemplateView):
-    template_name = 'RollerSkateInventory/home.html'    
 
-#region InventoryViews
-class Inventory_ListView(generic.ListView):
-    model = Inventory
-    context_object_name = 'inventories'
+def View_Home(request):
+    template = 'RollerSkateInventory/home.html'
+    return render(request, template)       
+
+#region InventoryViews    
+def List_Inventory(request):
+    inventories = Inventory.objects.all()
+    template = "RollerSkateInventory/inventory_list.html"
+    context = {
+            'inventories' : inventories,
+            'cancel': reverse_lazy('home'),
+               }
+    return render(request, template, context)
 
 def Create_Inventory(request):
     form = InventoryForm()

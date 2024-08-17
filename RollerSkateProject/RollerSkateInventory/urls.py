@@ -4,8 +4,8 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('', views.Home_View.as_view(), name='home'),
-    path('Inventories/', views.Inventory_ListView.as_view(), name='inventory-list'),
+    path('', views.View_Home, name='home'),
+    path('Inventories/', views.List_Inventory, name='inventory-list'),
     path('Inventories/new/', views.Create_Inventory, name='inventory-create'),
     path('<int:pk>/', views.Detail_Inventory, name='inventory-detail'),
     path('<int:pk>/update/', views.Update_Inventory, name='inventory-update'),
