@@ -1,0 +1,15 @@
+{% extends 'RollerSkateInventory/base.html' %}
+{% block title %}Deleting {{object.name}}{% endblock %}
+{%block content%}
+    <form method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend class="red">WARNING</legend>                        
+            <p>Are you sure you want to delete <span class={{class}}>{{object.name}}</span> ? </p>
+            <div class="row">                    
+                <button class="btn danger">Delete</button>
+                <a class="btn" href="{{cancel}}">Cancel</a>
+            </div>
+        </fieldset>
+    </form>
+{%endblock content%}

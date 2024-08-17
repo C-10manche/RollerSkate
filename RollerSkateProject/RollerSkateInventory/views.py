@@ -1,84 +1,152 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Inventory, RollerSkate
 from .forms import InventoryForm, RollerSkateForm
 from django.views import generic
-from django.urls import reverse_lazy   
+from django.urls import reverse_lazy
+from django.forms import formset_factory
 
-class HomeView(generic.TemplateView):
+class Home_View(generic.TemplateView):
     template_name = 'RollerSkateInventory/home.html'    
 
 #region InventoryViews
-class InventoryListView(generic.ListView):
+class Inventory_ListView(generic.ListView):
     model = Inventory
     context_object_name = 'inventories'
 
-class InventoryCreateView(generic.CreateView):
-    model = Inventory
-    form_class = InventoryForm
-    success_url = reverse_lazy('inventory-list')
-       
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['button_name'] = "Create"            
-        return context
+def Create_Inventory(request):
+    form = InventoryForm()
+    template = "RollerSkateInventory/basic_form.html"
+    url = reverse_lazy('inventory-list')
+    if request.method == 'POST':
+        form = InventoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(url)
+    context = {
+            'form' : form, 
+            'object' : "New Inventory",
+            'button_name' : "Create", 
+            'class' : "inventory", 
+            'title' : "Creating",
+            'cancel': url,
+               }
+    return render(request, template, context)
     
-class InventoryDetailView(generic.DetailView):    
-    model = Inventory
-    context_object_name = 'inventory'
+
+def Update_Inventory(request, pk):
+    inventory = Inventory.objects.get(id=pk)
+    form = InventoryForm(instance=inventory)
+    template = "RollerSkateInventory/basic_form.html"
+    url = reverse_lazy('inventory-list')
+    if request.method == 'POST':
+        form = InventoryForm(request.POST, instance=inventory)
+        if form.is_valid():
+            form.save()
+            return redirect(url)
+    context = {
+            'form' : form,
+            'object' : inventory.name,
+            'button_name' : "Update", 
+            'class' : "inventory", 
+            'title' : f"Updating",
+            'cancel': url,
+            }
+    return render(request, template, context)   
+
+def Detail_Inventory(request, pk):    
+    inventory = Inventory.objects.get(id=pk)
+    template = 'RollerSkateInventory/inventory_detail.html'
+    url = reverse_lazy('inventory-list', kwargs={'pk': pk}) 
     
-class InventoryUpdateView(generic.UpdateView):    
-    model = Inventory
-    fields = ['name', 'address']
-    success_url = reverse_lazy('inventory-list')    
+    context = {
+            'inventory': inventory,
+            'class' : "rollerskate", 
+            'cancel': url,
+            }
+    return render(request, template, context)
+
+def Delete_Inventory(request, pk):  
+    inventory = Inventory.objects.get(id=pk)
+    url = reverse_lazy('inventory-list')
+    template = "RollerSkateInventory/basic_confirm_delete.html"
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['button_name'] = "Update"            
-        return context
-    
-class InventoryDeleteView(generic.DeleteView):    
-    model = Inventory
-    success_url = reverse_lazy('inventory-list')
+    if request.method == 'POST':
+        inventory.delete()
+        return redirect(url)
+    context = {
+            'object': inventory,
+            'class' : "inventory", 
+            'cancel': url,
+            }
+    return render(request, template, context)   
 #endregion
+    
+def Create_RollerSkate(request, pk):
+    inventory = Inventory.objects.get(id=pk)
+    form = RollerSkateForm(initial={"inventory":inventory})
+    url = reverse_lazy('inventory-detail', kwargs={'pk': inventory.pk})
+    template = "RollerSkateInventory/basic_form.html"
+    
+    if request.method == 'POST':
+        form = RollerSkateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(url)        
+    if form.has_changed():
+        context = {
+            'form': form,
+            'object' : "New Roller-Skate",
+            'button_name': "Create",
+            'class': "inventory",
+            'title': "Creating",
+            'cancel': url,
+        }
+        return render(request, template, context)
 
-class RollerSkateCreateView(generic.CreateView):
-    model = RollerSkate
-    form_class = RollerSkateForm
+def Update_RollerSkate(request, pk, inventory_pk):
+    rollerskate = RollerSkate.objects.get(id=pk)
+    form = RollerSkateForm(instance=rollerskate)
+    url = reverse_lazy('inventory-detail', kwargs={'pk': inventory_pk})
+    template = "RollerSkateInventory/basic_form.html"
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["inventory_pk"] = self.kwargs['pk']
-        context["button_name"] = "Create"
-        return context    
-    
-    def form_valid(self, form):
-        inventory_id = self.kwargs['pk']
-        inventory = Inventory.objects.get(pk=inventory_id)
-        form.instance.inventory = inventory
-        return super().form_valid(form)
-    
-    def get_success_url(self):
-        return reverse_lazy('inventory-detail', kwargs={'pk': self.object.inventory.id})    
+    if request.method == 'POST':
+        form = RollerSkateForm(request.POST, instance=rollerskate)
+        if form.is_valid():
+            form.save()
+            return redirect(url)
+    context = {
+            'form' : form, 
+            'object' : form.instance.name,
+            'button_name' : "Update", 
+            'class' : "inventory", 
+            'title' : f"Updating",
+            'cancel': url,
+            }
+    return render(request, template, context)
 
-class RollerSkateDetailView(generic.DetailView):    
-    model = RollerSkate
-    context_object_name = 'rollerskate'
-
-class RollerSkateUpdateView(generic.UpdateView):    
-    model = RollerSkate
-    fields = ['name', 'size_min', 'size_max', 'barcode']
+def Detail_RollerSkate(request, pk, inventory_pk):    
+    rollerskate = RollerSkate.objects.get(id=pk)
+    template = 'RollerSkateInventory/rollerskate_detail.html'
+    url = reverse_lazy('inventory-detail', kwargs={'pk': inventory_pk}) 
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)        
-        context['inventory_pk'] = self.kwargs['inventory_pk']
-        context['button_name'] = "Update"            
-        return context
+    context = {
+            'rollerskate': rollerskate,
+            'class' : "rollerskate", 
+            'cancel': url,
+            }
+    return render(request, template, context)
     
-    def get_success_url(self):
-        return reverse_lazy('inventory-detail', kwargs={'pk': self.object.inventory.id})    
-
-class RollerSkateDeleteView(generic.DeleteView):    
-    model = RollerSkate
+def Delete_RollerSkate(request, pk, inventory_pk):  
+    rollerskate = RollerSkate.objects.get(id=pk)
+    url = reverse_lazy('inventory-detail', kwargs={'pk': inventory_pk})
+    template = "RollerSkateInventory/basic_confirm_delete.html"
     
-    def get_success_url(self):
-        return reverse_lazy('inventory-detail', kwargs={'pk': self.object.inventory.id})       
+    if request.method == 'POST':
+        rollerskate.delete()
+        return redirect(url)
+    context = {
+            'object': rollerskate,
+            'class' : "rollerskate", 
+            'cancel': url,
+            }
+    return render(request, template, context)   

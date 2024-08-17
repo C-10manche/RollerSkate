@@ -3,14 +3,14 @@
 {% block title %}{{inventory.name}} Inventory{% endblock %}
 
 {% block content %}
-  <h2>{{inventory.name}}</h2>
+  <h1 class="inventory">{{inventory.name}}</h1>
   <table>
     <thead>
         <tr>
             <th>Name</th>
             <th>Sizes</th>
             <th>Barcode</th>
-            <th>Option</th>
+            <th>Options</th>
         </tr>
     </thead>
     <a class="btn create" href="{% url 'rollerskate-create' inventory.id %}">+ Add Roller-Skate</a>
@@ -25,14 +25,14 @@
               {% endif %}
               <td>{{ rollerskate.barcode }}</td>
               <td>
-                <a class="btn update" href="{% url 'rollerskate-update' inventory.id rollerskate.id %}">&#9998</a>
-                <a class="btn danger" href="{% url 'rollerskate-delete' inventory.id rollerskate.id %}">&#10005</a>
+                <a class="btn update" href="{% url 'rollerskate-update'  inventory.id rollerskate.id %}">&#9998</a>
+                <a class="btn danger" href="{% url 'rollerskate-delete'  inventory.id rollerskate.id %}">&#10005</a>
               </td>
           </tr>
         {% empty %}
             </tbody>
           </table>
-          <p class="red-text">No Roller-Skates Found</p>
+          <p class="red">No Roller-Skates Found</p>
         {% endfor %}
     </tbody>
   </table>

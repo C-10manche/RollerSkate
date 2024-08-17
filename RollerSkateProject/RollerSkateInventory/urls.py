@@ -4,16 +4,16 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('', views.HomeView.as_view(), name='home'),
-    path('Inventories/', views.InventoryListView.as_view(), name='inventory-list'),
-    path('Inventories/new/', views.InventoryCreateView.as_view(), name='inventory-create'),
-    path('<int:pk>/', views.InventoryDetailView.as_view(), name='inventory-detail'),
-    path('<int:pk>/update/', views.InventoryUpdateView.as_view(), name='inventory-update'),
-    path('<int:pk>/delete/', views.InventoryDeleteView.as_view(), name='inventory-delete'),
-    path('<int:pk>/new/', views.RollerSkateCreateView.as_view(), name='rollerskate-create'),
-    path('<int:inventory_pk>/<int:pk>/detail/', views.RollerSkateDetailView.as_view(), name='rollerskate-detail'),
-    path('<int:inventory_pk>/<int:pk>/update/', views.RollerSkateUpdateView.as_view(), name='rollerskate-update'),
-    path('<int:inventory_pk>/<int:pk>/delete/', views.RollerSkateDeleteView.as_view(), name='rollerskate-delete'),
+    path('', views.Home_View.as_view(), name='home'),
+    path('Inventories/', views.Inventory_ListView.as_view(), name='inventory-list'),
+    path('Inventories/new/', views.Create_Inventory, name='inventory-create'),
+    path('<int:pk>/', views.Detail_Inventory, name='inventory-detail'),
+    path('<int:pk>/update/', views.Update_Inventory, name='inventory-update'),
+    path('<int:pk>/delete/', views.Delete_Inventory, name='inventory-delete'),
+    path('<int:pk>/new/', views.Create_RollerSkate, name='rollerskate-create'),
+    path('<int:inventory_pk>/<int:pk>/detail/', views.Detail_RollerSkate, name='rollerskate-detail'),
+    path('<int:inventory_pk>/<int:pk>/update/', views.Update_RollerSkate, name='rollerskate-update'),
+    path('<int:inventory_pk>/<int:pk>/delete/', views.Delete_RollerSkate, name='rollerskate-delete'),
 ]
 
 if settings.DEBUG:
