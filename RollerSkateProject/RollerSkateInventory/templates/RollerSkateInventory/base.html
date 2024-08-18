@@ -12,7 +12,7 @@
         {% block navbar %}     
             <a href="{% url 'home'%}">- Home -</a>
             <a href="{% url 'inventory-list'%}">- Inventories -</a>
-            <a href="#" class={%if active%}"active"{%endif%}>- Events -</a>
+            <a href="{% url 'event-list'%}">- Events -</a>
         {% endblock %}
     </nav>
     <main class = "column">

@@ -30,30 +30,5 @@ class RollerSkate(models.Model):
             self.size_min = saved_size_max        
         super(RollerSkate, self).save(*args, **kwargs)
 
-class Event(models.Model):
-    name = models.CharField(max_length=50)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
-    inventories = models.ManyToManyField(Inventory)
-    
-class Client(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField(default='youremail@email.com', unique=True, max_length=254)
-    
-    AGE_CHOICES = [(age, str(age)) for age in range(121)]
-        
-    age = models.IntegerField(choices=AGE_CHOICES, null=True, blank=True)
 
-class Child(models.Model):
-    first_name = models.CharField(max_length=50)
-    parents = models.ManyToManyField(Client, related_name="childrens")
-    
-class Order(models.Model):
-    clients = models.ManyToManyField(Client, related_name="orders")
-    rollerskates = models.ManyToManyField(RollerSkate, related_name='orders')
-    event = models.ManyToManyField(Event, related_name='orders')
-    borrow_at = models.DateTimeField(default=timezone.now)
-    retrieved_at = models.DateTimeField(null=True, blank=True)
-    
     

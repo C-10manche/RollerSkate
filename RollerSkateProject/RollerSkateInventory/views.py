@@ -63,11 +63,15 @@ def Update_Inventory(request, pk):
 def Detail_Inventory(request, pk):    
     inventory = Inventory.objects.get(id=pk)
     template = 'RollerSkateInventory/inventory_detail.html'
-    url = reverse_lazy('inventory-list', kwargs={'pk': pk}) 
+    url = reverse_lazy('inventory-list') 
+    rollerskate_number = 0
+    
+    for rollerskate in inventory.rollerskates.all():
+        rollerskate_number += 1 
     
     context = {
             'inventory': inventory,
-            'class' : "rollerskate", 
+            'rollerskate_number': rollerskate_number,
             'cancel': url,
             }
     return render(request, template, context)

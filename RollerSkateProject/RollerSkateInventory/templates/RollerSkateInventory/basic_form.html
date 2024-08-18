@@ -3,12 +3,28 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-  <h2>{{title}}<span class="{{class}}"> {{object}}</span></h2>      
+
+  <p>{{title}}</p>
+  <h2 class="{{class}}"> {{object}}</h2>
   <form class="column" method="post">
     {% csrf_token %}
-      <table>
-          {{form.as_table}}
+      <table class="form">
+        <thead>
+          <tr>
+            {% for field in form %}
+              <th>{{field.label_tag}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {% for field in form %}
+              <td>{{field}}</td>
+            {% endfor %}
+          </tr>
+        </tbody>
       </table>
+      <br></br>
       <div class="row">
         <button class="btn create">{{button_name}}</button>
         <a class="btn" href="{{cancel}}">Cancel</a>            

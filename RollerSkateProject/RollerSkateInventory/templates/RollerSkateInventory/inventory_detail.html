@@ -3,38 +3,42 @@
 {% block title %}{{inventory.name}} Inventory{% endblock %}
 
 {% block content %}
-  <h1 class="inventory">{{inventory.name}}</h1>
-  <table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Sizes</th>
-            <th>Barcode</th>
-            <th>Options</th>
-        </tr>
-    </thead>
-    <a class="btn create" href="{% url 'rollerskate-create' inventory.id %}">+ Add Roller-Skate</a>
-    <tbody>
-        {% for rollerskate in inventory.rollerskates.all %}
+  <h1>Details of Inventory<span class="inventory"> {{inventory.name}}</span> ({{ inventory.address }})</h1>
+  <h1><span class="rollerskate">Roller-Skates</span> [ {{rollerskate_number}} ]</h1>
+  <a class="btn create" href="{% url 'rollerskate-create' inventory.id %}">+ Add Roller-Skate</a>
+  <div class="scroll-table">
+    <table>
+      <thead>
           <tr>
-              <td><a class="btn rollerskate" href="{%url 'rollerskate-detail' inventory.id rollerskate.id%}">{{ rollerskate.name }}</a></td>
-              {%if rollerskate.size_min == rollerskate.size_max%}
-                <td>{{ rollerskate.size_min }}</td>
-              {% else %}
-                <td>{{ rollerskate.size_min }}-{{ rollerskate.size_max }}</td>
-              {% endif %}
-              <td>{{ rollerskate.barcode }}</td>
-              <td>
-                <a class="btn update" href="{% url 'rollerskate-update'  inventory.id rollerskate.id %}">&#9998</a>
-                <a class="btn danger" href="{% url 'rollerskate-delete'  inventory.id rollerskate.id %}">&#10005</a>
-              </td>
+              <th>Name</th>
+              <th>Sizes</th>
+              <th>Barcode</th>
+              <th>Options</th>
           </tr>
-        {% empty %}
-            </tbody>
-          </table>
-          <p class="red">No Roller-Skates Found</p>
-        {% endfor %}
-    </tbody>
-  </table>
-  <a class="btn" href="{% url 'inventory-list' %}">Return</a>
+      </thead>
+      <tbody>
+          {% for rollerskate in inventory.rollerskates.all %}
+            <tr>
+                <td><a class="btn rollerskate" href="{%url 'rollerskate-detail' inventory.id rollerskate.id%}">{{ rollerskate.name }}</a></td>
+                {%if rollerskate.size_min == rollerskate.size_max%}
+                  <td>{{ rollerskate.size_min }}</td>
+                {% else %}
+                  <td>{{ rollerskate.size_min }}-{{ rollerskate.size_max }}</td>
+                {% endif %}
+                <td>{{ rollerskate.barcode }}</td>
+                <td>
+                  <a class="btn update" href="{% url 'rollerskate-update'  inventory.id rollerskate.id %}">&#9998</a>
+                  <a class="btn danger" href="{% url 'rollerskate-delete'  inventory.id rollerskate.id %}">&#10005</a>
+                </td>
+            </tr>
+          {% empty %}
+                </tbody>
+              </table>
+            </div>
+            <p class="red">No Roller-Skates Found</p>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <a class="btn" href="{{cancel}}">Return</a>
 {% endblock %}

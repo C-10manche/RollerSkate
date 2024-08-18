@@ -10,4 +10,3 @@ class RollerSkateForm(forms.ModelForm):
     class Meta:
         model = RollerSkate
         fields = ["name", "size_min", "size_max", "barcode", "inventory"]
-        

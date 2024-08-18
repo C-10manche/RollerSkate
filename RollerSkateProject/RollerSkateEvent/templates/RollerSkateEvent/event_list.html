@@ -1,0 +1,41 @@
+{% extends "RollerSkateInventory/base.html" %}
+
+{% block title %}Events{% endblock %}
+
+{% block content %}
+  <a class="btn create" href="{% url 'event-create'%}">+ Add Event</a>
+  <table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Start_Time</th>
+            <th>End_Time</th>
+            <th>Inventories</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+      <tr>
+          <td><a class="btn event" href="{% url 'event-detail' event.id %}">{{ event.name }}</a></td>         
+          <td>{{ event.start_time }}</td>
+          <td>{{ event.end_time }}</td>
+          <td>
+            {% for inventory in event.inventories.all %}
+            <a class="btn inventory" href="{% url 'inventory-detail' inventory.id %}">{{inventory.name}}</a>
+            {% endfor %}
+          </td>
+          <td>
+            <a class="btn update" href="{% url 'event-update' event.id %}">&#9998</a>
+            <a class="btn danger" href="{% url 'event-delete' event.id %}">&#10005</a>
+          </td>        
+      </tr>
+      {% empty %}
+          </tbody>
+        </table>
+        <p class="red">No Event Found</p>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="btn" href="{% url 'home'%}">Return</a>
+{% endblock %}
