@@ -38,7 +38,6 @@ def Create_Inventory(request):
             'cancel': url,
                }
     return render(request, template, context)
-    
 
 def Update_Inventory(request, pk):
     inventory = Inventory.objects.get(id=pk)

@@ -31,5 +31,5 @@
             </tr>
     </tbody>
   </table>
-  <a class="btn" href="{% url 'inventory-detail' rollerskate.inventory.id %}">Return</a>
+  <a class="btn" href="{{ request.META.HTTP_REFERER }}">Return</a>
 {% endblock %}

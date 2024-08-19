@@ -3,31 +3,36 @@
 {% block title %}Inventories{% endblock %}
 
 {% block content %}
-  <a class="btn create" href="{% url 'inventory-create'%}">+ Add Inventory</a>
-  <table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Options</th>
-        </tr>
-    </thead>
-    <tbody>
-      {% for inventory in inventories %}
-      <tr>
-          <td><a class="btn inventory" href="{% url 'inventory-detail' inventory.id %}">{{ inventory.name }}</a></td>         
-          <td>{{ inventory.address }}</td>         
-          <td>
-            <a class="btn update" href="{% url 'inventory-update' inventory.id %}">&#9998</a>
-            <a class="btn danger" href="{% url 'inventory-delete' inventory.id %}">&#10005</a>
-          </td>        
-      </tr>
-      {% empty %}
-          </tbody>
-        </table>
-        <p class="red">No Inventory Found</p>
-      {% endfor %}
-    </tbody>
-  </table>
-  <a class="btn" href="{% url 'home'%}">Return</a>
+  <h1>- Inventories -</h1>
+  <a class="btn inventory" href="{% url 'inventory-create'%}">+ Add Inventory +</a>
+  <div class="scroll-table">
+    <table>
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Options</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for inventory in inventories %}
+          <tr class="clickable-row" data-href="{% url 'inventory-detail' inventory.id %}">
+            <td><a class="btn inventory" href="{% url 'inventory-detail' inventory.id %}">{{ inventory.name }}</a></td>         
+            <td>{{ inventory.address }}</td>         
+            <td>
+              <a class="btn update" href="{% url 'inventory-update' inventory.id %}">&#9998</a>
+              <a class="btn danger" href="{% url 'inventory-delete' inventory.id %}">&#10005</a>
+            </td>        
+          </tr>
+        {% empty %}
+            </tbody>
+          </table>
+          <p class="danger">Warning : No Inventory Found</p>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <a class="btn" href="{% url 'home'%}">Return Home</a>
+
 {% endblock %}
+

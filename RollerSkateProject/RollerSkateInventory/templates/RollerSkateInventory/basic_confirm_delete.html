@@ -4,11 +4,11 @@
     <form method="post">
         {% csrf_token %}
         <fieldset>
-            <legend class="red">WARNING</legend>                        
-            <p>Are you sure you want to delete <span class={{class}}>{{object.name}}</span> ? </p>
+            <legend class="btn danger">WARNING</legend>                        
+            <p>Are you sure you want to delete <span class="btn {{class}}">{{object.name}}</span> ? </p>
             <div class="row">                    
-                <button class="btn danger">Delete</button>
-                <a class="btn" href="{{cancel}}">Cancel</a>
+                <button class="btn danger">&#10004;</button>
+                <a class="btn" href="{{cancel}}">&#10006;</a>
             </div>
         </fieldset>
     </form>

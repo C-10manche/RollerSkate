@@ -15,7 +15,7 @@ body {
     color: #f7f6f2;
     background-color: rgb(43, 43, 43);
     font-size: 14px;
-    margin: 10vh;
+    margin: 0px;
 }
 
 nav {
@@ -23,32 +23,75 @@ nav {
     flex-direction: row;
     justify-content:center;
     align-items: center;
-    position: fixed;
-    top: 0;
+    position: sticky;
+    padding: 0;
+    padding-inline: 0;
     left: auto;
     width: 500px;
-    height: 50px;
+    height: 10vh;
+    top: 5vh;
+    margin: 3vh;
     background-color: hsla(218, 10%, 15%, 0.932);
-    padding: 20px;
 
-    box-sizing: border-box;
     border: 1px solid grey;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-
+    
+    z-index: 2;
+    
     transition: all 0.3s ease 0.01s;
 }
 
 nav:hover {
-    transition: all 0.6s ease 0.01s;
-    height: 60px;
+    background-color: hsla(218, 10%, 16%, 0.932);
+    transition: all 0.2s ease 0.1s;
 }
 
-@media (max-height: 500px) {
+.nav-item{
+    font-size: 25px;
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    justify-content: center;
+}
+
+@media (max-height: 700px) {
     nav {
         display: none;
     }
+}
+
+
+@keyframes sticker-floating {
+    0% {
+      transform: translateY(0px) rotate3d(0,1,0, 5deg);
+    }
+    25% {
+      transform: translateY(3px) rotate3d(1,0,0, 5deg);
+    }
+    50% {
+      transform: translateY(0px) rotate3d(0,1,0, 0deg);
+    }
+    75% {
+      transform: translateY(4px) rotate3d(0,0,1, 5deg);
+    }
+    100% {
+        transform: translateY(0px) rotate3d(0,1,0, 5deg);
+    }
+  }
+
+.nav-home-sticker{
+    position: sticky;
+    flex:2;
+    width: 145px;
+    height: 150px;
+    animation: sticker-floating 10s infinite ease-in-out 0.1s;
+    transition: all 0.3s ease-in-out 0.1s;
+}
+
+.nav-home-sticker:hover{
+    animation: pulse 3s linear;
 }
 
 main{
@@ -61,15 +104,16 @@ main{
     background-color: hsla(218, 10%, 15%, 0.932);
     width: fit-content;
     height: fit-content;
-    transition: all 0.1s ease 0.1s;
     border: 1px solid grey;
-    border-radius: 4px;
+    border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    transition: all 1s ease-in-out 0.3s;
 }
 
 main:hover{
     background-color: hsl(214, 9%, 16%);
     transition: all 0.3s ease 0.01s;
+    transition: all 0.3s ease-in-out 0.1s;
 }
 
 form.register{    
@@ -98,18 +142,23 @@ form {
 
 
 input, select{
-    width: 100px;
+    min-width: 20px;
+    width: fit-content;
+    max-height: 100px;
     margin: 5px;
     border: 2px solid #2525251c;
-    border-radius: 4px;
+    border-radius: 5px;
     text-align: center;
-
 }
 
-input[type="checkbox"]{
-    width: fit-content;
-    display: inline-block;
+label{
+    display: flex;
+    text-align: center;
     vertical-align: middle;
+}
+
+label:hover {
+    color: rgb(255, 210, 87);
 }
 
 fieldset{
@@ -133,8 +182,11 @@ legend{
     width: 100%;
 }
 
-.column {    
-    flex-direction:column;    
+.column {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;   
 }
 
 .row {    
@@ -148,7 +200,7 @@ h2{
     font-size: 16px;
 }
 h1{
-    font-weight: bold;
+    font-weight: normal;
     padding: 5px;
     margin: 5px;
     font-size: 20px;
@@ -158,122 +210,162 @@ a{
     color: #f7f6f2;
     text-decoration: none;
     list-style: none;
+    width: fit-content;
+    height: fit-content;
     padding: 2px;
     margin: 4px;
+    transition: all 0.1s ease-in-out 0.01s;
 }
 
 a:hover{
-    color: #c8e0fff6;
+    color: #e7adb7f6;
+    transition: all 0.1s ease-in-out 0.01s;
 }
 
-nav a{
-    font-size: 20px;
-    align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    transition: all 0.3s ease 0.01s;
+.list{
+    text-align: left;
 }
 
-nav:hover a{
-    font-size: 21px;
-    transition: all 0.3s ease 0.01s;
+@keyframes pulse {
+    0% { transform: scale(1); }
+    66% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes spin {
+    0% { transform: translateY(0) rotateZ(0); }
+    25% { transform: rotateZ(4deg); }
+    50% { transform: translateY(-3px) rotateZ(0deg); }
+    75% { transform: rotateZ(-4deg); }
+    100% { transform: translateY(0) rotateZ(0); }
+}
+
+@keyframes blurry {
+    0% { filter:opacity(1); }
+    66% { filter:opacity(0.8); }
+    100% { filter:opacity(1); }
 }
 
 .btn{
-    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    box-sizing: border-box;
     color: #b6b6b6;
-    border: 2px solid #b6b6b6;
+    border: 1px solid;
+    border-color: hsl(0, 0%, 71%);
     border-radius: 6px;
     background-color: transparent;
-    font-weight: bolder;
-    font-size: 16px;
+    background-color:  hsla(0, 0%, 71%, 0.05);
+    font-weight: normal;
+    min-width: 38px;
+    min-height: 38px;
+    padding-inline: 6px;
+    margin: 5px;
+    filter: blur(0) saturate(1) opacity(1);
+    cursor: pointer;
+    text-align: center;
+    animation: blurry 3s infinite linear;
 
-    padding: 10px;
-    padding-inline: 13px;
-    transition: all 0.1s ease 0.1s;
+    transition: all 0.3s ease 0.1s;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn:hover{
     color: #cecece;
-    border: 2px solid #cecece;
+    font-weight: bold;
+    border: 3px solid;
+    border-color: #cecece ;
+    transition: all 0.08s ease-in-out 0.1s;
+    border-radius: 10px;
+    animation: spin 0.333s linear;
+    filter: blur(0) saturate(1.5) opacity(1);
+    transition: all 0.3s ease 0.01s;
+}
+
+.btn:focus{
+    filter: blur(0.5px) saturate(1.5) opacity(0.5);
+    transition: all 0.3s ease 0.01s;
+}
+  
+.clickable-row:hover{
     cursor: pointer;
-    border-radius: 25px;
-    transition: all 0.1s ease 0.1s;
 }
 
-a.inventory{
-    color: hsla(40, 90%, 70%, 0.8);
-    border: 2px solid hsla(40, 90%, 70%, 1);
+.inventory{
+    color: hsl(40, 100%, 70%, 0.8);
+    border-color: hsla(40, 100%, 70%, 0.8);
+    background-color:  hsla(40, 90%, 70%, 0.05);
 }
 
-a.inventory:hover{
+.inventory:hover{
     color: hsla(40, 100%, 80%, 0.8);
-    border: 2px solid hsla(40, 100%, 80%, 1);
+    border-color: hsla(40, 100%, 80%, 0.8);
 }
 
-a.rollerskate{
+.rollerskate{
     color: hsla(170, 50%, 50%, 0.8);
-    border: 2px solid hsla(170, 50%, 50%, 1);
+    border-color: hsla(170, 50%, 50%, 0.8);
+    background-color:  hsla(170, 50%, 50%, 0.05);
 }
 
-a.rollerskate:hover{
+.rollerskate:hover{
     color: hsla(170, 100%, 80%, 0.8);
-    border: 2px solid hsla(170, 100%, 80%, 1);
+    border-color: hsla(170, 100%, 80%, 0.8);
 }
 
-a.event{
-    color: hsla(300, 60%, 60%, 0.8);
-    border: 2px solid hsla(300, 60%, 60%, 1);
+.event{
+    color: hsla(300, 82%, 69%, 0.8);
+    border-color: hsla(300, 82%, 69%, 0.8);
+    background-color:  hsla(300, 82%, 69%, 0.05);
 }
 
-a.event:hover{
+.event:hover{
     color: hsla(300, 100%, 80%, 0.8);
-    border: 2px solid hsla(300, 100%, 80%, 0.8);
+    border-color: hsla(300, 100%, 80%, 0.8);
 }
 
 .danger{
     color: hsla(0, 60%, 60%, 0.8);
-    border: 2px solid hsla(0, 60%, 60%, 1);
-    transition: all 0.1s ease 0.1s;
+    border-color: hsla(0, 60%, 60%, 0.8);
+    background-color:  hsla(0, 60%, 60%, 0.05);
 }
 
 .danger:hover{
-    border-radius: 50%;
     color: hsla(0, 100%, 80%, 0.8);
-    border: 2px solid hsla(0, 100%, 80%, 1);
-    transition: all 0.1s ease 0.1s;
+    border-color: hsla(0, 100%, 80%, 0.8);
 }
 
 .create{
     color: hsla(100, 40%, 60%, 0.8);
-    border: 2px solid hsla(100, 40%, 60%, 1);
+    border-color: hsla(100, 40%, 60%, 0.8);
+    background-color:  hsla(100, 40%, 60%, 0.05);
 
 }
 
 .create:hover{
     color: hsla(100, 100%, 80%, 1);
-    border: 2px solid hsla(100, 100%, 80%, 1);
-
+    border-color: hsla(100, 100%, 80%, 1);
 }
 
 .update{
     color: hsla(197, 60%, 60%, 1);
-    border: 2px solid hsla(197, 60%, 60%, 1);
-    transition: all 0.1s ease 0.1s;
+    border-color: hsla(197, 60%, 60%, 1);
+    background-color:  hsla(197, 60%, 60%, 0.05);
 }
 
 .update:hover{
-    border-radius: 50%;
     color: hsla(197, 100%, 80%, 1);
-    border: 2px solid hsla(197, 100%, 80%, 1);
-    transition: all 0.1s ease 0.1s;
+    border-color: hsla(197, 100%, 80%, 1);
 }
+
 table.form {
-    border-collapse: collapse;
+    border-collapse: separate;
     width: fit-content;
     margin-top: 5px;
     margin-bottom: 5px;   
-    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
     display: inline-block;
 }
 
@@ -281,65 +373,62 @@ table.form tbody tr {
     flex-direction: row;
 }
 
-
 table {
-    border-collapse: collapse;
+    border-spacing: 0px; 
+    border-collapse:separate;
     height: fit-content;
+    width: auto;
     text-align: center;
-    margin: 5px;
-    margin:30px;
-    justify-content: start;    
+    margin:30px;  
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
 }
-
 .scroll-table{
     max-height:400px;
     overflow-y: auto;
+    margin: 0px;
 }
-
 
 td {
     background: transparent;
-    box-sizing: border-box;
-    border: 1px solid hsla(0, 0%, 48%, 0.938);
+    inline-size:auto;
+    transition: all 0.3s ease 0.1s;
+    font-family: "Roboto", sans-serif;
 }
 
 th {
     position: sticky;
-    background-color: hsl(218, 6%, 26%);
-    outline: 1px solid hsla(0, 0%, 48%, 0.938);
+    background-color: hsl(214, 12%, 26%);
     color: #fff;
-    padding : 20px;
     z-index: 1;
     top: 0px;
     font-weight: 400;
-    width: max-content;
-    box-sizing: border-box;
+    width: 200px;
+    height: 30px;
 }
 
-/*alterne dans le tableau la couleur entre chaque rangé*/
+th, td {
+    border: 1px solid hsla(210, 100%, 98%, 0.5);
+    padding: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 5px 5px 40px rgba(213, 231, 255, 0.03);
+}
+
+th:hover{
+    box-shadow: 0px 0px 15px rgba(185, 255, 255, 0.1);
+}
+
+td:hover {
+    background-color: hsla(263, 100%, 92%, 0.03);
+    box-shadow: 0px 0px 15px rgba(185, 255, 255, 0.1);
+}
+
+table:hover {
+    box-shadow: 0px 0px 30px rgba(172, 218, 255, 0.1);
+}
+
+
+/*alterne dans le tableau la couleur entre chaque row*/
 tbody tr:nth-child(even) {
     background-color: hsla(202, 5%, 53%, 0.1);
-}
-
-td{
-    padding: 30px 10px;
-}
-
-
-
-.red{
-    color: hsla(0, 60%, 60%, 1);
-}
-
-.inventory{
-    color: hsla(40, 90%, 70%, 1);
-}
-
-.rollerskate{
-    color: hsla(170, 50%, 50%, 1);
-}
-
-.event{
-    color: hsla(300, 60%, 64%, 0.8);
+    min-width: fit-content;
 }

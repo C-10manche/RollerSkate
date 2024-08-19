@@ -1,16 +1,17 @@
 from django import forms
-from .models import Event, Client, Order
+from .models import Event, Client
 
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ["name", "start_time", "end_time", "inventories"]
+        fields = ['name', 'date', 'start_time', 'end_time', 'inventories']
         widgets = {
-            'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local', 'format': '%Y-%m-%dT%H:%M'}),
-            'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local', 'format': '%Y-%m-%dT%H:%M'}),
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'start_time': forms.TimeInput(attrs={'type': 'time'}),
+            'end_time': forms.TimeInput(attrs={'type': 'time'}),
             'inventories': forms.CheckboxSelectMultiple(),
-        }        
-        
+        }
+
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client

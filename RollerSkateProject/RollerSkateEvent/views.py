@@ -29,7 +29,7 @@ def Create_Event(request):
             'class' : "event", 
             'title' : "Creating",
             'cancel': url,
-               }
+            }
     return render(request, template, context)
 
 def Update_Event(request, pk):

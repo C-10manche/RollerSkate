@@ -3,61 +3,60 @@
 {% block title %}{{event.name}} Event{% endblock %}
 
 {% block content %}
-  <h1 class="event">{{ event.name }}</h1>
-  <table>
-    <thead>
-        <tr>
-            <th>Start_Time</th>
-            <th>End_Time</th>
-            <th>Options</th>
-        </tr>
-    </thead>
-    <tbody>
-    <tbody>
-        <tr>
-            <td>{{ event.start_time }}</td>
-            <td>{{ event.end_time }}</td>
-            <td>
-                <a class="btn update" href="{% url 'event-update' event.id %}">&#9998</a>
-                <a class="btn danger" href="{% url 'event-delete' event.id %}">&#10005</a>
-            </td>        
-        </tr>
-    </tbody>    
+
+    <h1 class="btn event">{{ event.name }}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Start at</th>
+                <th>End at</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ event.date }}</td>
+                <td>{{ event.start_time }}</td>
+                <td>{{ event.end_time }}</td>
+                <td>
+                    <a class="btn update" href="{% url 'event-update' event.id %}">&#9998;</a>
+                    <a class="btn danger" href="{% url 'event-delete' event.id %}">&#10005;</a>
+                </td>        
+            </tr>
+        </tbody>    
     </table>
     
-    <h1 class="rollerskate">Roller-Skates</h1>
-    <table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Sizes</th>
-            <th>Barcode</th>
-            <th>Options</th>
-        </tr>
-    </thead>
-    {% for inventory in event.inventories.all %}
-        <tbody>
-            {% for rollerskate in inventory.rollerskates.all %}
+    <div class="scroll-table column">
+        <table>
+            <thead>
                 <tr>
-                    <td class="rollerskate">{{ rollerskate.name }}</a></td>
-                    {%if rollerskate.size_min == rollerskate.size_max%}
-                        <td>{{ rollerskate.size_min }}</td>
-                    {% else %}
-                        <td>{{ rollerskate.size_min }}-{{ rollerskate.size_max }}</td>
-                    {% endif %}
-                    <td>{{ rollerskate.barcode }}</td>
-                    <td>
-                        <a class="btn" href="#">Availability</a>
-                    </td>
+                    <th>Name</th>
+                    <th>Sizes</th>
+                    <th>Availability</th>
                 </tr>
-                {% empty %}
-                    </tbody>
-                </table>
-                <p class="red">No Roller-Skates Found</p>
-            {% endfor %}
-        </tbody>
-    {% endfor %}
-</table>
-                
-<a class="btn" href="{% url 'event-list' %}">Return</a>
+            </thead>
+            <tbody>
+                {% for inventory in event.inventories.all %}
+                    {% for rollerskate in inventory.rollerskates.all %}
+                        <tr class="clickable-row" data-href="{%url 'rollerskate-detail' inventory.id rollerskate.id%}">
+                            <td><a class="btn rollerskate" href="{% url "rollerskate-detail" inventory.id rollerskate.id%}">{{ rollerskate.name }}</a></td>
+                            {%if rollerskate.size_min == rollerskate.size_max %}
+                                <td>{{ rollerskate.size_min }}</td>
+                            {% else %}
+                                <td>{{ rollerskate.size_min }}-{{ rollerskate.size_max }}</td>
+                            {% endif %}
+                            <td></td>
+                        </tr>
+                    {% empty %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="danger">Warning : No Roller-Skates Found inside {{ inventory.name }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>  
+    <a class="btn" href="{{ request.META.HTTP_REFERER }}">Return</a>
 {% endblock %}
