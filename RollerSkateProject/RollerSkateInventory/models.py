@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser
 class Inventory(models.Model):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=255)
+    last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -16,6 +17,7 @@ class RollerSkate(models.Model):
     size_max = models.IntegerField(choices=SIZE_CHOICES, null=True, blank=True)
     barcode = models.IntegerField()
     inventory = models.ForeignKey(Inventory, related_name='rollerskates', on_delete=models.CASCADE)
+    last_updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.name

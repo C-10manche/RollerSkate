@@ -1,24 +1,32 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Jura:wght@300..700&family=Mate+SC&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Offside&family=Patrick+Hand+SC&family=Playwrite+BE+WAL:wght@100..400&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Rubik+Puddles&family=Stick+No+Bills:wght@200..800&display=swap');
-
 body {
     font-family: "Jura", sans-serif;
     font-weight: 400;
     font-optical-sizing: auto;
     font-style: normal;
-
+    text-transform: uppercase;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
     color: #f7f6f2;
-    background-color: rgb(43, 43, 43);
+    background: linear-gradient(to right, #272b2e, #2e3d4b),
+                linear-gradient(to bottom, #ffd9fd, #ffdfb6);
     font-size: 14px;
     margin: 0px;
 }
 
-nav {
+nav {    
+    background: repeating-linear-gradient(
+        60deg,
+        hsla(214, 8%, 17%, 0.1),
+        hsla(216, 3%, 34%, 0.1) 150px,
+        hsla(213, 15%, 24%, 0.1),
+        hsla(0, 0%, 22%, 0.05) 5px
+      );
     display: flex;
     flex-direction: row;
     justify-content:center;
@@ -27,13 +35,13 @@ nav {
     padding: 0;
     padding-inline: 0;
     left: auto;
-    width: 500px;
+    width: 600px;
     height: 10vh;
     top: 5vh;
     margin: 3vh;
-    background-color: hsla(218, 10%, 15%, 0.932);
+    background-color: hsl(214, 14%, 19%);
 
-    border: 1px solid grey;
+    border: 2px solid hsla(45, 8%, 90%, 0.4);
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
@@ -44,16 +52,17 @@ nav {
 }
 
 nav:hover {
-    background-color: hsla(218, 10%, 16%, 0.932);
+    background-color: hsl(214, 15%, 20%);
     transition: all 0.2s ease 0.1s;
 }
 
 .nav-item{
     font-size: 25px;
-    width: 100%;
+    width: 200px;
     height: fit-content;
     text-align: center;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 @media (max-height: 700px) {
@@ -65,55 +74,63 @@ nav:hover {
 
 @keyframes sticker-floating {
     0% {
-      transform: translateY(0px) rotate3d(0,1,0, 5deg);
-    }
-    25% {
-      transform: translateY(3px) rotate3d(1,0,0, 5deg);
-    }
+        transform: translateY(0px) translatex(-3px);
+    }    
     50% {
-      transform: translateY(0px) rotate3d(0,1,0, 0deg);
-    }
-    75% {
-      transform: translateY(4px) rotate3d(0,0,1, 5deg);
+      transform: translateY(-3px) translatex(3px) rotateZ(-3deg);
     }
     100% {
-        transform: translateY(0px) rotate3d(0,1,0, 5deg);
+        transform: translateY(0px) translatex(-3px);
     }
   }
 
+
 .nav-home-sticker{
-    position: sticky;
     flex:2;
-    width: 145px;
+    width: 148px;
     height: 150px;
-    animation: sticker-floating 10s infinite ease-in-out 0.1s;
-    transition: all 0.3s ease-in-out 0.1s;
+    animation: sticker-floating 9s infinite ease-in-out 0.05s;
+    transition: all 0.1s ease 0.01s;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1) translateY(0px); }
+    50% { transform: scale(1.05) translateY(-2px); }
+    100% { transform: scale(1) translateY(0px); }
 }
 
 .nav-home-sticker:hover{
-    animation: pulse 3s linear;
+    width: 158px;
+    height: 160px;
+    transition: all 0.1s ease 0.01s;
 }
 
-main{
+main{    
+    background: repeating-linear-gradient(
+        60deg,
+        hsla(214, 8%, 17%, 0.1),
+        hsla(216, 3%, 34%, 0.1) 300px,
+        hsla(213, 15%, 24%, 0.1),
+        hsla(0, 0%, 22%, 0.05) 5px
+      );
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 20px;
     margin: 5vh;
-    background-color: hsla(218, 10%, 15%, 0.932);
+    background-color: hsl(214, 14%, 19%);
     width: fit-content;
     height: fit-content;
-    border: 1px solid grey;
+    border: 2px solid hsla(45, 8%, 90%, 0.4);
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-    transition: all 1s ease-in-out 0.3s;
+    transition: all 0.3s ease-in-out 0.3s;
 }
 
 main:hover{
-    background-color: hsl(214, 9%, 16%);
+    background-color: hsl(214, 15%, 20%);
     transition: all 0.3s ease 0.01s;
-    transition: all 0.3s ease-in-out 0.1s;
 }
 
 form.register{    
@@ -142,19 +159,21 @@ form {
 
 
 input, select{
-    min-width: 20px;
-    width: fit-content;
+    min-width: 50px;
     max-height: 100px;
     margin: 5px;
     border: 2px solid #2525251c;
     border-radius: 5px;
-    text-align: center;
+    text-align: left;
 }
 
-label{
-    display: flex;
-    text-align: center;
-    vertical-align: middle;
+div[id="id_inventories"] {
+    flex-direction: column;
+    text-align: left;
+    min-height: 50px;
+    max-height: 75px;
+    inline-size: 200px;
+    overflow-y: auto;
 }
 
 label:hover {
@@ -226,17 +245,12 @@ a:hover{
     text-align: left;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    66% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
 
-@keyframes spin {
+@keyframes shake {
     0% { transform: translateY(0) rotateZ(0); }
-    25% { transform: rotateZ(4deg); }
-    50% { transform: translateY(-3px) rotateZ(0deg); }
-    75% { transform: rotateZ(-4deg); }
+    25% { transform: rotateZ(5deg); }
+    50% { transform: translateY(-2px); }
+    75% { transform: rotateZ(-5deg); }
     100% { transform: translateY(0) rotateZ(0); }
 }
 
@@ -266,10 +280,10 @@ a:hover{
     filter: blur(0) saturate(1) opacity(1);
     cursor: pointer;
     text-align: center;
-    animation: blurry 3s infinite linear;
+    animation: blurry 3s infinite linear;  
 
     transition: all 0.3s ease 0.1s;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px rgb(10, 10, 10, 0.3);
 }
 
 .btn:hover{
@@ -279,7 +293,7 @@ a:hover{
     border-color: #cecece ;
     transition: all 0.08s ease-in-out 0.1s;
     border-radius: 10px;
-    animation: spin 0.333s linear;
+    animation: pulse 0.333s linear;
     filter: blur(0) saturate(1.5) opacity(1);
     transition: all 0.3s ease 0.01s;
 }
@@ -288,7 +302,11 @@ a:hover{
     filter: blur(0.5px) saturate(1.5) opacity(0.5);
     transition: all 0.3s ease 0.01s;
 }
-  
+
+.shake:hover{
+    animation: shake 0.333s linear;
+}
+
 .clickable-row:hover{
     cursor: pointer;
 }
@@ -315,10 +333,32 @@ a:hover{
     border-color: hsla(170, 100%, 80%, 0.8);
 }
 
+@keyframes event-started {
+    0% {
+        filter: brightness(.8) saturate(0.8);
+        background-color:  hsla(0, 0%, 0%, 0);
+
+    }    
+    50% {
+        filter: brightness(1) saturate(1) ;
+        background-color: hsla(295, 100%, 81%, 0.233);
+    }
+    100% {
+        filter: brightness(.8) saturate(.8);
+        background-color:  hsla(0, 0%, 0%, 0);
+    }
+  }
+
+
+.started{    
+    animation: event-started 2s infinite ease-in-out 0.1s;
+}
+
 .event{
     color: hsla(300, 82%, 69%, 0.8);
     border-color: hsla(300, 82%, 69%, 0.8);
     background-color:  hsla(300, 82%, 69%, 0.05);
+    animation: glow 2s infinite ease-in-out 0.1s;
 }
 
 .event:hover{
@@ -382,6 +422,11 @@ table {
     margin:30px;  
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
 }
+
+caption{
+    margin: 3px;
+}
+
 .scroll-table{
     max-height:400px;
     overflow-y: auto;
@@ -431,4 +476,19 @@ table:hover {
 tbody tr:nth-child(even) {
     background-color: hsla(202, 5%, 53%, 0.1);
     min-width: fit-content;
+}
+
+.small{
+    font-size: 10px;
+    color: #c7c7c7a9;
+}
+
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.errorlist{
+    color: rgba(214, 123, 62, 0.938);
 }

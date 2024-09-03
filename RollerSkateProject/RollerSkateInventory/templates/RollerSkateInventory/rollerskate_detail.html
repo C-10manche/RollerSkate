@@ -3,15 +3,16 @@
 {% block title %}{{rollerskate.name}} Roller-Skates{% endblock %}
 
 {% block content %}
-  <h1 class="rollerskate">{{rollerskate.name}}</h2>
   <table>
+    <caption>
+      <h1 class="rollerskate">{{rollerskate.name}}</h2>
+    </caption>
     <thead>
         <tr>
             <th>Name</th>
             <th>Size</th>
             <th>Barcode</th>
             <th>Inventory</th>
-            <th>Options</th>
         </tr>
     </thead>
     <tbody>
@@ -24,12 +25,8 @@
                 {% endif %}
                 <td>{{ rollerskate.barcode }}</td>
                 <td><a class="btn inventory" href="{% url 'inventory-detail' rollerskate.inventory.id %}">{{ rollerskate.inventory.name }}</a></td>
-                <td>
-                    <a class="btn update" href="{% url 'rollerskate-update' rollerskate.inventory.id rollerskate.id %}">&#9998</a>
-                    <a class="btn danger" href="{% url 'rollerskate-delete' rollerskate.inventory.id rollerskate.id %}">&#10005</a>
-                </td>
             </tr>
     </tbody>
   </table>
-  <a class="btn" href="{{ request.META.HTTP_REFERER }}">Return</a>
+  <a class="btn" href="{% url "inventory-detail" rollerskate.inventory.id %}">Return</a>
 {% endblock %}

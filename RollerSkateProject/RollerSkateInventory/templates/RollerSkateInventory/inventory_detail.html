@@ -3,38 +3,21 @@
 {% block title %}{{inventory.name}} Inventory{% endblock %}
 
 {% block content %}
-<h1 class="btn inventory">{{ inventory.name }}</h1>
-  <table>
-    <thead>
-        <tr>
-            <th>Address</th>
-            <th>Options</th>
-        </tr>
-    </thead>
-    <tbody>
-      <tr>      
-          <td>{{ inventory.address }}</td>         
-          <td>
-            <a class="btn update" href="{% url 'inventory-update' inventory.id %}">&#9998;</a>
-            <a class="btn danger" href="{% url 'inventory-delete' inventory.id %}">&#10005;</a>
-            <a class="btn rollerskate" href="{% url 'rollerskate-create' inventory.id %}">+ Add Roller-Skates +</a>
-          </td>        
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <div class="scroll-table">
-    <caption>
-      <h1><span class="rollerskate">Roller-Skates</span> [ {{rollerskate_number}} ]</h1>
-    </caption>
     <table>
+      <caption>
+        <h1 class="inventory">{{ inventory.name }}</h1>
+        <h1 class="rollerskate">Roller-Skates [ {{rollerskate_number}} ]</h1>
+      </caption>
       <thead>
           <tr>
               <th>Name</th>
               <th>Sizes</th>
               <th>Barcode</th>
-              <th>Options</th>
+              <th>Options
+                <div>
+                  <a class="btn update shake" href="{% url 'rollerskate-update-multiple'  inventory.id%}" title="Edit Multiple">&#9998; &#9998; &#9998;</a></div>
+              </th>
           </tr>
       </thead>
       <tbody>
@@ -48,18 +31,31 @@
                 {% endif %}
                 <td>{{ rollerskate.barcode }}</td>
                 <td>
-                  <a class="btn update" href="{% url 'rollerskate-update'  inventory.id rollerskate.id %}">&#9998;</a>
-                  <a class="btn danger" href="{% url 'rollerskate-delete'  inventory.id rollerskate.id %}">&#10005;</a>
+                  <div>
+                  <a class="btn update shake" href="{% url 'rollerskate-update'  inventory.id rollerskate.id %}" title="Update">&#9998;</a>
+                  <a class="btn danger shake" href="{% url 'rollerskate-delete'  inventory.id rollerskate.id %}" title="Delete">&#10005;</a>
+                </div>
+                  <div class="small">
+                  {{ rollerskate.last_updated }}
+                 </div>
+                </td>  
                 </td>
             </tr>
-          {% empty %}
+          {% empty %}          
+                  <td><p class="danger">X</p></td>
+                  <td><p class="danger">X</p></td>
+                  <td><p class="danger">X</p></td>
+                  <td><p class="danger">X</p></td>
                 </tbody>
+                <caption class="danger">Warning : No Roller-Skates Found</caption>
               </table>
-            </div>
-            <p class="danger">Warning : No Roller-Skates Found</p>
           {% endfor %}
       </tbody>
     </table>
   </div>
-  <a class="btn" href="{{ request.META.HTTP_REFERER }}">Return</a>
+  <br>
+  <div class="row">
+    <a class="btn create" href="{% url 'rollerskate-create' inventory.id %}">Create</a>
+    <a class="btn" href="{% url "inventory-list" %}">Return</a>
+  </div>
 {% endblock %}

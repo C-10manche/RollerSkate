@@ -8,8 +8,16 @@ class Event(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     inventories = models.ManyToManyField(Inventory)
+    last_updated = models.DateTimeField(auto_now=True)
+
+class Order(models.Model):
+    rollerskates = models.ManyToManyField(RollerSkate, related_name='orders')
+    event = models.ForeignKey(Event, related_name='orders', on_delete=models.DO_NOTHING)
+    borrow_at = models.DateTimeField(default=timezone.now)
+    retrieved_at = models.DateTimeField(null=True, blank=True)
     
-from django.db import models
+    def __str__(self):
+        return f'Order {self.id} by {self.client}'
 
 class Client(models.Model):
     STATUS_CHOICE = [(0, "alone"), (1,"parent"), (2,"child")]
@@ -18,15 +26,7 @@ class Client(models.Model):
     last_name = models.CharField(max_length=50)
     email = models.EmailField(unique=True, max_length=254, null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
+    order = models.ForeignKey(Order, related_name="clients", on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
-    
-
-class Order(models.Model):
-    client = models.ManyToManyField(Client, related_name="orders")
-    rollerskates = models.ManyToManyField(RollerSkate, related_name='orders')
-    event = models.ForeignKey(Event, related_name='orders', on_delete=models.CASCADE)
-    borrow_at = models.DateTimeField(default=timezone.now)
-    retrieved_at = models.DateTimeField(null=True, blank=True)
-    

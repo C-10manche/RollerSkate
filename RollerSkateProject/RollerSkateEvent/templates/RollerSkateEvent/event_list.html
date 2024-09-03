@@ -3,9 +3,12 @@
 {% block title %}Events{% endblock %}
 
 {% block content %}
-<h1>- Events -</h1>
-  <a class="btn event" href="{% url 'event-create'%}">+ Add Event +</a>
+
   <table>
+    <caption>
+      <h1 class="event">- Events -</h1>
+      <a class="btn create" href="{% url 'event-create'%}">Create</a>
+    </caption>
     <thead>
         <tr>
             <th>Name</th>
@@ -29,16 +32,26 @@
             {% endfor %}
           </td>
           <td>
-            <a class="btn update" href="{% url 'event-update' event.id %}">&#9998</a>
-            <a class="btn danger" href="{% url 'event-delete' event.id %}">&#10005</a>
+            <div>
+              <a class="btn update shake" href="{% url 'event-update' event.id %}">&#9998;</a>
+              <a class="btn danger shake" href="{% url 'event-delete' event.id %}">&#10005;</a>
+            </div>
+            <div class="small">
+              {{ event.last_updated }}
+            </div>
           </td>        
       </tr>
       {% empty %}
+            <td><p class="danger">X</p></td>
+            <td><p class="danger">X</p></td>
+            <td><p class="danger">X</p></td>
+            <td><p class="danger">X</p></td>
+            <td><p class="danger">X</p></td>
+            <td><p class="danger">X</p></td>
           </tbody>
+          <caption class="danger">Warning : No Event Found</caption>
         </table>
-        <p class="danger">Warning : No Event Found</p>
       {% endfor %}
     </tbody>
   </table>
-  <a class="btn" href="{% url 'home'%}">Return Home</a>
 {% endblock %}

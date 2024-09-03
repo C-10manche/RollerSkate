@@ -3,10 +3,12 @@
 {% block title %}Inventories{% endblock %}
 
 {% block content %}
-  <h1>- Inventories -</h1>
-  <a class="btn inventory" href="{% url 'inventory-create'%}">+ Add Inventory +</a>
   <div class="scroll-table">
     <table>
+      <caption>
+        <h1 class="inventory">- Inventories -</h1>
+        <a class="btn create" href="{% url 'inventory-create'%}">Create</a>
+      </caption>
       <thead>
           <tr>
               <th>Name</th>
@@ -20,19 +22,25 @@
             <td><a class="btn inventory" href="{% url 'inventory-detail' inventory.id %}">{{ inventory.name }}</a></td>         
             <td>{{ inventory.address }}</td>         
             <td>
-              <a class="btn update" href="{% url 'inventory-update' inventory.id %}">&#9998</a>
-              <a class="btn danger" href="{% url 'inventory-delete' inventory.id %}">&#10005</a>
+              <div>
+              <a class="btn update shake" href="{% url 'inventory-update' inventory.id %}" title="Update">&#9998;</a>
+              <a class="btn danger shake" href="{% url 'inventory-delete' inventory.id %}" title="Delete">&#10005;</a>
+            </div>
+              <div class="small">
+              {{ inventory.last_updated }}
+             </div>
             </td>        
           </tr>
         {% empty %}
+              <td><p class="danger">X</p></td>
+              <td><p class="danger">X</p></td>
+              <td><p class="danger">X</p></td>
             </tbody>
+            <caption class="danger">Warning : No Inventory Found</caption>
           </table>
-          <p class="danger">Warning : No Inventory Found</p>
         {% endfor %}
       </tbody>
     </table>
   </div>
-  <a class="btn" href="{% url 'home'%}">Return Home</a>
-
 {% endblock %}
 

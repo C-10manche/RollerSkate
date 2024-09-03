@@ -1,5 +1,5 @@
 from django import forms
-from .models import Event, Client
+from .models import Event, Client, Order
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -11,8 +11,3 @@ class EventForm(forms.ModelForm):
             'end_time': forms.TimeInput(attrs={'type': 'time'}),
             'inventories': forms.CheckboxSelectMultiple(),
         }
-
-class ClientForm(forms.ModelForm):
-    class Meta:
-        model = Client
-        fields = ["first_name", "last_name", "email", "age"]

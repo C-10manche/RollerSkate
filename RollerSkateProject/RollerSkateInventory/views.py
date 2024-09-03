@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Inventory, RollerSkate
 from .forms import InventoryForm, RollerSkateForm
-from django.views import generic
 from django.urls import reverse_lazy
-from django.forms import formset_factory
+from django.forms import inlineformset_factory
 
 
 def View_Home(request):
@@ -85,33 +84,68 @@ def Delete_Inventory(request, pk):
         return redirect(url)
     context = {
             'object': inventory,
-            'class' : "inventory", 
-            'cancel': url,
+            'class' : "inventory",
             }
     return render(request, template, context)   
 #endregion
     
 def Create_RollerSkate(request, pk):
     inventory = Inventory.objects.get(id=pk)
-    form = RollerSkateForm(initial={"inventory":inventory})
+    RollerSkateFormset = inlineformset_factory(Inventory, RollerSkate, 
+                                               fields=("name", "size_min", "size_max", "barcode", "inventory"), 
+                                               extra=1,
+                                               can_order=False,
+                                               can_delete=False,
+                                               )
     url = reverse_lazy('inventory-detail', kwargs={'pk': inventory.pk})
-    template = "RollerSkateInventory/basic_form.html"
     
-    if request.method == 'POST':
-        form = RollerSkateForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(url)        
-    if form.has_changed():
-        context = {
-            'form': form,
-            'object' : "New Roller-Skate",
-            'button_name': "Create",
-            'class': "inventory",
-            'title': "Creating",
-            'cancel': url,
-        }
-        return render(request, template, context)
+    if request.method == 'POST':        
+        formset = RollerSkateFormset(request.POST, instance=inventory)  
+                  
+        if formset.is_valid():
+            formset.save()
+            return redirect(url)
+    else:
+        formset = RollerSkateFormset(queryset=RollerSkate.objects.none(), instance=inventory)
+
+    context = {
+        'formset': formset,
+        'object': "New Roller-Skate",
+        'button_name': "Create",
+        'class': "rollerskate",
+        'title': "Creating",
+        'cancel': url,
+    }
+    return render(request, "RollerSkateInventory/basic_formset.html", context)
+    
+def Update_Multiple_RollerSkate(request, inventory_pk):
+    inventory = Inventory.objects.get(id=inventory_pk)
+    RollerSkateFormset = inlineformset_factory(Inventory, RollerSkate, 
+                                               fields=("name", "size_min", "size_max", "barcode", "inventory"), 
+                                               extra=0,
+                                               can_order=False,
+                                               can_delete=False,
+                                               )
+    url = reverse_lazy('inventory-detail', kwargs={'pk': inventory_pk})
+    
+    if request.method == 'POST':        
+        formset = RollerSkateFormset(request.POST, instance=inventory)                  
+        if formset.is_valid():
+            formset.save()
+            return redirect(url)
+    else:
+        formset = RollerSkateFormset(queryset=RollerSkate.objects.all(), instance=inventory)
+
+    context = {
+        'formset': formset,
+        'object': formset.instance.name,
+        'button_name': "Update",
+        'class': "rollerskate",
+        'title': "Updating",
+        'cancel': url,
+    }
+    return render(request, "RollerSkateInventory/basic_formset.html", context)
+    
 
 def Update_RollerSkate(request, pk, inventory_pk):
     rollerskate = RollerSkate.objects.get(id=pk)
@@ -129,7 +163,7 @@ def Update_RollerSkate(request, pk, inventory_pk):
             'object' : form.instance.name,
             'button_name' : "Update", 
             'class' : "inventory", 
-            'title' : f"Updating",
+            'title' : "Updating",
             'cancel': url,
             }
     return render(request, template, context)
@@ -156,7 +190,6 @@ def Delete_RollerSkate(request, pk, inventory_pk):
         return redirect(url)
     context = {
             'object': rollerskate,
-            'class' : "rollerskate", 
-            'cancel': url,
+            'class' : "rollerskate",
             }
     return render(request, template, context)   

@@ -27,9 +27,9 @@
 <body>
     <nav>
         {% block navbar %}     
-            <a class="nav-item" href="{% url 'inventory-list'%}">Inventories</a>
+            <a class="nav-item btn inventory" href="{% url 'inventory-list'%}">Inventories</a>
             <a href="{% url 'home'%}"><img class="nav-home-sticker" src="{% static 'RollerSkateInventory/hercule_on_rollerskates.png'%}"></a>
-            <a class="nav-item" href="{% url 'event-list'%}">Events</a>
+            <a class="nav-item btn event" href="{% url 'event-list'%}">Events</a>
         {% endblock %}
     </nav>
     <main class = "column">

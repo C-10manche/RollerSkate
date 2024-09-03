@@ -13,6 +13,7 @@ urlpatterns = [
     path('<int:pk>/new/', views.Create_RollerSkate, name='rollerskate-create'),
     path('<int:inventory_pk>/<int:pk>/detail/', views.Detail_RollerSkate, name='rollerskate-detail'),
     path('<int:inventory_pk>/<int:pk>/update/', views.Update_RollerSkate, name='rollerskate-update'),
+    path('<int:inventory_pk>/update-multiple/', views.Update_Multiple_RollerSkate, name='rollerskate-update-multiple'),
     path('<int:inventory_pk>/<int:pk>/delete/', views.Delete_RollerSkate, name='rollerskate-delete'),
 ]
 

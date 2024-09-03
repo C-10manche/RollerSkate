@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Event
+from .models import Event, Order
 from .forms import EventForm
 from django.urls import reverse_lazy
 
@@ -9,7 +9,6 @@ def List_Event(request):
     events = Event.objects.all()
     context ={
         'events': events,
-        'cancel': reverse_lazy('home'),
     }
     return render(request, template, context)
 
@@ -28,7 +27,7 @@ def Create_Event(request):
             'button_name' : "Create", 
             'class' : "event", 
             'title' : "Creating",
-            'cancel': url,
+            'cancel' : url,
             }
     return render(request, template, context)
 
@@ -48,7 +47,7 @@ def Update_Event(request, pk):
             'button_name' : "Update", 
             'class' : "event", 
             'title' : f"Updating",
-            'cancel': url,
+            'cancel' : url,
             }
     return render(request, template, context)   
 
@@ -73,7 +72,6 @@ def Delete_Event(request, pk):
         return redirect(url)
     context = {
             'object': event,
-            'class' : "event", 
-            'cancel': url,
+            'class' : "event",
             }
     return render(request, template, context)   

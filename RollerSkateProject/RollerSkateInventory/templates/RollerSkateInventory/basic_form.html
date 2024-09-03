@@ -5,29 +5,16 @@
 {% block content %}
 
   <p>{{title}}</p>
-  <h2 class="btn {{class}}"> {{object}}</h2>
+  <h2 class="{{class}}"> {{object}}</h2>
   <form class="column" method="post">
     {% csrf_token %}
       <table class="form">
-        <thead>
-          <tr>
-            {% for field in form %}
-              <th>{{field.label_tag}}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            {% for field in form %}
-              <td>{{field}}</td>
-            {% endfor %}
-          </tr>
-        </tbody>
+        {{form.as_table}}
       </table>
       <br></br>
       <div class="row">
         <button class="btn create" type="submit">{{button_name}}</button>
-        <a class="btn" href="{{cancel}}">Cancel</a>            
+        <a class="btn" href="{{ cancel }}">Cancel</a>            
       </div> 
   </form> 
 {% endblock %}

@@ -5,10 +5,10 @@
         {% csrf_token %}
         <fieldset>
             <legend class="btn danger">WARNING</legend>                        
-            <p>Are you sure you want to delete <span class="btn {{class}}">{{object.name}}</span> ? </p>
+            <p>Are you sure you want to delete <span class="{{class}}">{{object.name}}</span> ? </p>
             <div class="row">                    
-                <button class="btn danger">&#10004;</button>
-                <a class="btn" href="{{cancel}}">&#10006;</a>
+                <button class="btn danger shake" title="Delete">&#10004;</button>
+                <a class="btn shake" href="{{ request.META.HTTP_REFERER }}" title="Cancel">&#10006;</a>
             </div>
         </fieldset>
     </form>

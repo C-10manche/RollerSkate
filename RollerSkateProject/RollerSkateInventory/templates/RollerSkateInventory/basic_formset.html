@@ -1,0 +1,32 @@
+{% extends "RollerSkateInventory/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+  <p>{{ title }}</p>
+
+  <form id="formset" class="column" method="POST">
+
+    {% csrf_token %}
+    {{ formset.management_form }}
+
+    <div id="formset-container" class="formset-container scroll-table">
+      <h2 class="{{ class }}"> {{ object }}</h2>
+      <hr>
+      {% for form in formset %}
+        <div class="form-container">
+            {{ form.as_table }}
+        </div>
+        <hr>
+      {% empty %}
+        <p class="danger">Warning : Nothing to Edit</p>
+      {% endfor %}
+    </div>
+
+    <div class="row">
+      <button class="btn create" type="submit">{{ button_name }}</button>
+      <a class="btn" href="{{ cancel }}">Cancel</a>
+    </div>
+
+  </form>  
+{% endblock %}
