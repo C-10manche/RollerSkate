@@ -88,7 +88,8 @@ def Delete_Inventory(request, pk):
             }
     return render(request, template, context)   
 #endregion
-    
+
+#region RollerSkateViews
 def Create_RollerSkate(request, pk):
     inventory = Inventory.objects.get(id=pk)
     RollerSkateFormset = inlineformset_factory(Inventory, RollerSkate, 
@@ -192,4 +193,5 @@ def Delete_RollerSkate(request, pk, inventory_pk):
             'object': rollerskate,
             'class' : "rollerskate",
             }
-    return render(request, template, context)   
+    return render(request, template, context)
+#endregion
