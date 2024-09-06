@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>    
+    <link rel="shortcut icon" href="{% static 'Inventory/hercule_on_rollerskates.png'%}">
+    <link rel="stylesheet" type="text/css" href= "{% static 'Inventory/style.css'%}">
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                const delay = Math.random() * 100;
+                button.style.animationDelay = `${delay}ms`;
+            });
+            const rows = document.querySelectorAll('.clickable-row');
+            rows.forEach(row => {
+                row.addEventListener('click', function() {
+                    window.location.href = row.dataset.href;
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav>
+        {% block navbar %}     
+            <a class="nav-item btn inventory" href="{% url 'inventory-list'%}">Inventories</a>
+            <a href="{% url 'home'%}"><img class="nav-home-sticker" src="{% static 'Inventory/hercule_on_rollerskates.png'%}"></a>
+            <a class="nav-item btn event" href="{% url 'event-list'%}">Events</a>
+        {% endblock %}
+    </nav>
+    <main class = "column">
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

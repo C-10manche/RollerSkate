@@ -1,0 +1,58 @@
+{% extends "Inventory/base.html" %}
+
+{% block title %}Events{% endblock %}
+
+{% block content %}
+  <div class = "scroll-table">
+    <table>
+      <caption>
+        <h1 class="event">- Events -</h1>
+      </caption>
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Start at</th>
+              <th>End at</th>
+              <th>Inventories</th>
+              <th>Options</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for event in events %}
+        <tr class="clickable-row" data-href="{%url 'event-detail' event.id%}">
+            <td><a class="btn event" href="{% url 'event-detail' event.id %}">{{ event.name }}</a></td>     
+            <td>{{ event.date }}</td>
+            <td>{{ event.start_time }}</td>
+            <td>{{ event.end_time }}</td>
+            <td>
+              {% for inventory in event.inventories.all %}
+              <a class="btn inventory" href="{% url 'inventory-detail' inventory.id %}">{{inventory.name}}</a>
+              {% endfor %}
+            </td>
+            <td>
+              <div>
+                <a class="btn update shake" href="{% url 'event-update' event.id %}">&#9998;</a>
+                <a class="btn danger shake" href="{% url 'event-delete' event.id %}">&#10005;</a>
+              </div>
+              <div class="small">
+                {{ event.last_updated }}
+              </div>
+            </td>        
+        </tr>
+        {% empty %}
+              <td><p class="danger">X</p></td>
+              <td><p class="danger">X</p></td>
+              <td><p class="danger">X</p></td>
+              <td><p class="danger">X</p></td>
+              <td><p class="danger">X</p></td>
+              <td><p class="danger">X</p></td>
+            </tbody>
+            <caption class="danger">Warning : No Event Found</caption>
+          </table>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <a class="btn create" href="{% url 'event-create'%}">Create</a>
+{% endblock %}

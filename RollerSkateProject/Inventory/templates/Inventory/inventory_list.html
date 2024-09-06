@@ -1,0 +1,46 @@
+{% extends 'Inventory/base.html' %}
+
+{% block title %}Inventories{% endblock %}
+
+{% block content %}
+  <div class="scroll-table">
+    <table>
+      <caption>
+        <h1 class="inventory">- Inventories -</h1>
+      </caption>
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Options</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for inventory in inventories %}
+          <tr class="clickable-row" data-href="{% url 'inventory-detail' inventory.id %}">
+            <td><a class="btn inventory" href="{% url 'inventory-detail' inventory.id %}">{{ inventory.name }}</a></td>         
+            <td>{{ inventory.address }}</td>         
+            <td>
+              <div>
+              <a class="btn update shake" href="{% url 'inventory-update' inventory.id %}" title="Update">&#9998;</a>
+              <a class="btn danger shake" href="{% url 'inventory-delete' inventory.id %}" title="Delete">&#10005;</a>
+            </div>
+              <div class="small">
+              {{ inventory.last_updated }}
+             </div>
+            </td>        
+          </tr>
+        {% empty %}
+              <td><p class="danger">X</p></td>
+              <td><p class="danger">X</p></td>
+              <td><p class="danger">X</p></td>
+            </tbody>
+            <caption class="danger">Warning : No Inventory Found</caption>
+          </table>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>  
+  <a class="btn create" href="{% url 'inventory-create'%}">Create</a>
+{% endblock %}
+

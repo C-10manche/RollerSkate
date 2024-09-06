@@ -1,0 +1,15 @@
+{% extends 'Inventory/base.html' %}
+{% block title %}Deleting {{object.name}}{% endblock %}
+{%block content%}
+    <form method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend class="btn danger">WARNING</legend>                        
+            <p>Are you sure you want to delete <span class="{{class}}">{{object.name}}</span> ? </p>
+            <div class="row">                    
+                <button class="btn danger shake" title="Delete">&#10004;</button>
+                <a class="btn shake" href="{{ request.META.HTTP_REFERER }}" title="Cancel">&#10006;</a>
+            </div>
+        </fieldset>
+    </form>
+{%endblock content%}

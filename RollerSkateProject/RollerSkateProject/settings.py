@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'RollerSkateEvent',
-    'RollerSkateInventory',
+    'Event',
+    'Inventory',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
